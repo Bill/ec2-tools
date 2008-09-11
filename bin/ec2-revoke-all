@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+%w(default black joyomihttp twipl).each do |group|
+  `ec2-describe-group #{group}`.split(/\n/).find_all{ |line| line.match( /CIDR/) }.collect{ |line| a = line.split; [a[-4], a[-1]] }.collect{ |addr| "ec2-revoke #{group} -P tcp -p #{addr[0]} -s #{addr[1]}"}.each{ |line| puts "executing: #{line}..."; `#{line}`}
+end
+
+# Revoke ability of joyomi to ssh to black
+`ec2-revoke black -u 074843158855 -o joyomihttp`

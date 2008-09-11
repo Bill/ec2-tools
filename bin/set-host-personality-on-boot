@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ruby -I$(dirname $0)/../lib $(dirname $0)/../lib/set-host-personality-on-boot.rb  $*

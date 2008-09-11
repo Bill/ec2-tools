@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ruby -I$(dirname $0)/../lib $(dirname $0)/../lib/ec2-snapshot-svn.rb  $*

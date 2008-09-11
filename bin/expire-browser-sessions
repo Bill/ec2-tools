@@ -1,0 +1,4 @@
+#!/bin/env /mnt/thoughtpropulsion/webapp/joyomi/current/script/runner
+# run from shell with -e <environment> e.g. -e production
+# delete sessions over 12 hours old
+ActiveRecord::Base.connection.delete( "DELETE FROM sessions WHERE TIMESTAMPDIFF( HOUR, updated_at, utc_timestamp()) > 12")
