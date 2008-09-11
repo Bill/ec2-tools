@@ -2,16 +2,17 @@
 IP=`curl http://www.dnsmadeeasy.com/myip.jsp | tail -n 1`.chomp
 
 def run(cmd) `#{cmd}`; end
+# def run(cmd) puts "running: #{cmd}"; end
 
 # Allow me to ssh to all roles
-%w(default black joyomihttp twipl).each do |group|
+%w(default thoughtpropulsion).each do |group|
   run "ec2-authorize #{group} -p 22 -s #{IP}/32"
 end
 
 # Allow all to http
-%w(joyomihttp twipl).each do |group|
-  "ec2-authorize #{group} -p 80"
+%w(thoughtpropulsion).each do |group|
+  run "ec2-authorize #{group} -p 80"
 end
 
 # Allow joyomi to ssh to black (so it can do SVN co)
-"ec2-authorize black -u 074843158855 -o joyomihttp"
+# "ec2-authorize black -u 074843158855 -o joyomihttp"
